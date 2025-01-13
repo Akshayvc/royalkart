@@ -1,0 +1,149 @@
+{% extends 'shop/basic.html' %}
+{% block title%} Search Results - My Awesome Cart{% endblock %}
+
+{% block body %}
+{% load static %}
+<div class="container">
+    <h1>Search product</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        <div class="form-group">
+            <div class="col-lg-5">
+                <input type="text" name="srh" class="form-control" placeholder="Enter product name">
+            </div>
+            <label class="col-lg-2">
+                <button type="submit" class="btn btn-danger">Search</button>
+            </label>
+        </div>
+    </form>
+    <br><br>
+    <div>
+        {% if messages %}
+        <ul class="messages">
+            {% for k in messages %}
+            <li style="color: red">{{ k }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}    
+    </div><br>
+    <div style="color:blue">
+            <div class="container carousel-inner no-padding">
+                    <div class="carousel-item active">
+                        <div class="row">
+        {% if sr %}
+            {% for k in sr %}
+            <!--<table border="0px" width="300px">
+                <tr>
+                    <td>Name</td>
+                    <td>{{ k.product_name }}</td>
+                </tr>
+                <tr>
+                    <td>Price</td>
+                    <td>{{ k.price }}</td>
+                </tr>
+            </table>-->
+            <div class="col-xs-3 col-sm-3 col-md-3" >
+                <div class="card align-items-center" style="background-color:#FFBC99; border-radius: 10rem;padding-bottom: 50px;">
+                    <img src="{% if k.image %} {{ k.image.url }} {% else %} {% static 'shop/sample.jpg' %} {% endif %}"   class="card-img-top" alt="..."height="300">
+                    <div class="card-body" style="color:black">
+                        <h6 class="card-title"  id="namepr{{k.id}}">{{k.product_name}}</h6>
+                        <h6 class="card-title">Price: <span id="pricepr{{k.id}}">{{k.price}}</h6>
+                        <h6 class="card-title" id="pnamepr{{k.id}}">{{k.shop_name}}</h6>
+                        <h6 class="card-title" id="pnamepr{{i.id}}">Rank:{{i.rate}}</h6>
+                        <center>
+                        <span id="divpr{{k.id}}" class="divpr">
+                            <button id="pr{{k.id}}" class="btn btn-primary cart" >Add To Cart</button>
+                        </span>
+                    
+                        <a href="/shop/products/{{k.id}}"><button id="qv{{k.id}}"
+                                class="btn btn-primary cart"style="font-size:1rem;margin-top:3%;line-height:1.5;">QuickView</button></a>
+                            </center>
+                    </div>
+                </div>
+            </div>
+        <hr>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
+</div>
+    </div>
+</div>
+{% endblock %}
+{% block js %}
+<script>
+    // Find out the cart items from localStorage
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        updateCart(cart);
+    }
+    // If the add to cart button is clicked, add/increment the item
+    //$('.cart').click(function() {
+    $('.divpr').on('click', 'button.cart', function () {
+        var idstr = this.id.toString();
+        if (cart[idstr] != undefined) {
+            qty = cart[idstr][0] + 1;
+        } else {
+            qty = 1;
+            name = document.getElementById('name' + idstr).innerHTML;
+            price = document.getElementById('price' + idstr).innerHTML;
+            cart[idstr] = [qty, name, parseInt(price)];
+        }
+        updateCart(cart);
+    });
+    //Add Popover to cart
+    $('#popcart').popover();
+    updatePopover(cart);
+    function updatePopover(cart) {
+        console.log('We are inside updatePopover');
+        var popStr = "";
+        popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='row mx-2 my-2'>";
+        var i = 1;
+        for (var item in cart) {
+            popStr = popStr + "<b>" + i + "</b>. ";
+            popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item] + '<br>';
+            i = i + 1;
+        }
+        popStr = popStr + "</div> <a href='/shop/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>"
+        console.log(popStr);
+        document.getElementById('popcart').setAttribute('data-content', popStr);
+        $('#popcart').popover('show');
+    }
+    function clearCart() {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        for (var item in cart) {
+            document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+        }
+        localStorage.clear();
+        cart = {};
+        updateCart(cart);
+    }
+    function updateCart(cart) {
+        var sum = 0;
+        for (var item in cart) {
+            sum = sum + cart[item][0];
+            document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('cart').innerHTML = sum;
+        console.log(cart);
+        updatePopover(cart);
+    }
+    // If plus or minus button is clicked, change the cart as well as the display value
+    $('.divpr').on("click", "button.minus", function () {
+        a = this.id.slice(7);
+        cart['pr' + a][0] = cart['pr' + a][0] - 1;
+        cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+        updateCart(cart);
+    });
+    $('.divpr').on("click", "button.plus", function () {
+        a = this.id.slice(6);
+        cart['pr' + a][0] = cart['pr' + a][0] + 1;
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+        updateCart(cart);
+    });
+</script>
+{% endblock %}

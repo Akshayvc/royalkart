@@ -1,0 +1,679 @@
+-- phpMyAdmin SQL Dump
+-- version 4.7.4
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1:3306
+-- Generation Time: May 05, 2019 at 04:05 PM
+-- Server version: 5.7.19
+-- PHP Version: 5.6.31
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `sample`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group`
+--
+
+DROP TABLE IF EXISTS `auth_group`;
+CREATE TABLE IF NOT EXISTS `auth_group` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(80) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_group_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_group_permissions`;
+CREATE TABLE IF NOT EXISTS `auth_group_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_group_permissions_group_id_permission_id_0cd325b0_uniq` (`group_id`,`permission_id`),
+  KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_permission`
+--
+
+DROP TABLE IF EXISTS `auth_permission`;
+CREATE TABLE IF NOT EXISTS `auth_permission` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `content_type_id` int(11) NOT NULL,
+  `codename` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`)
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `auth_permission`
+--
+
+INSERT INTO `auth_permission` (`id`, `name`, `content_type_id`, `codename`) VALUES
+(1, 'Can add product', 1, 'add_product'),
+(2, 'Can change product', 1, 'change_product'),
+(3, 'Can delete product', 1, 'delete_product'),
+(4, 'Can view product', 1, 'view_product'),
+(5, 'Can add contact', 2, 'add_contact'),
+(6, 'Can change contact', 2, 'change_contact'),
+(7, 'Can delete contact', 2, 'delete_contact'),
+(8, 'Can view contact', 2, 'view_contact'),
+(9, 'Can add orders', 3, 'add_orders'),
+(10, 'Can change orders', 3, 'change_orders'),
+(11, 'Can delete orders', 3, 'delete_orders'),
+(12, 'Can view orders', 3, 'view_orders'),
+(13, 'Can add order update', 4, 'add_orderupdate'),
+(14, 'Can change order update', 4, 'change_orderupdate'),
+(15, 'Can delete order update', 4, 'delete_orderupdate'),
+(16, 'Can view order update', 4, 'view_orderupdate'),
+(17, 'Can add category', 5, 'add_category'),
+(18, 'Can change category', 5, 'change_category'),
+(19, 'Can delete category', 5, 'delete_category'),
+(20, 'Can view category', 5, 'view_category'),
+(21, 'Can add rating', 6, 'add_rating'),
+(22, 'Can change rating', 6, 'change_rating'),
+(23, 'Can delete rating', 6, 'delete_rating'),
+(24, 'Can view rating', 6, 'view_rating'),
+(25, 'Can add user profile info', 7, 'add_userprofileinfo'),
+(26, 'Can change user profile info', 7, 'change_userprofileinfo'),
+(27, 'Can delete user profile info', 7, 'delete_userprofileinfo'),
+(28, 'Can view user profile info', 7, 'view_userprofileinfo'),
+(29, 'Can add registration', 8, 'add_registration'),
+(30, 'Can change registration', 8, 'change_registration'),
+(31, 'Can delete registration', 8, 'delete_registration'),
+(32, 'Can view registration', 8, 'view_registration'),
+(33, 'Can add log entry', 9, 'add_logentry'),
+(34, 'Can change log entry', 9, 'change_logentry'),
+(35, 'Can delete log entry', 9, 'delete_logentry'),
+(36, 'Can view log entry', 9, 'view_logentry'),
+(37, 'Can add permission', 10, 'add_permission'),
+(38, 'Can change permission', 10, 'change_permission'),
+(39, 'Can delete permission', 10, 'delete_permission'),
+(40, 'Can view permission', 10, 'view_permission'),
+(41, 'Can add group', 11, 'add_group'),
+(42, 'Can change group', 11, 'change_group'),
+(43, 'Can delete group', 11, 'delete_group'),
+(44, 'Can view group', 11, 'view_group'),
+(45, 'Can add user', 12, 'add_user'),
+(46, 'Can change user', 12, 'change_user'),
+(47, 'Can delete user', 12, 'delete_user'),
+(48, 'Can view user', 12, 'view_user'),
+(49, 'Can add content type', 13, 'add_contenttype'),
+(50, 'Can change content type', 13, 'change_contenttype'),
+(51, 'Can delete content type', 13, 'delete_contenttype'),
+(52, 'Can view content type', 13, 'view_contenttype'),
+(53, 'Can add session', 14, 'add_session'),
+(54, 'Can change session', 14, 'change_session'),
+(55, 'Can delete session', 14, 'delete_session'),
+(56, 'Can view session', 14, 'view_session'),
+(57, 'Can add supplier', 15, 'add_supplier'),
+(58, 'Can change supplier', 15, 'change_supplier'),
+(59, 'Can delete supplier', 15, 'delete_supplier'),
+(60, 'Can view supplier', 15, 'view_supplier');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user`
+--
+
+DROP TABLE IF EXISTS `auth_user`;
+CREATE TABLE IF NOT EXISTS `auth_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `password` varchar(128) NOT NULL,
+  `last_login` datetime(6) DEFAULT NULL,
+  `is_superuser` tinyint(1) NOT NULL,
+  `username` varchar(150) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
+  `last_name` varchar(150) NOT NULL,
+  `email` varchar(254) NOT NULL,
+  `is_staff` tinyint(1) NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `date_joined` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `username` (`username`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `auth_user`
+--
+
+INSERT INTO `auth_user` (`id`, `password`, `last_login`, `is_superuser`, `username`, `first_name`, `last_name`, `email`, `is_staff`, `is_active`, `date_joined`) VALUES
+(1, 'pbkdf2_sha256$120000$lXABPR0j9Tzw$niTKj7znzdzZqhGqHzf6SqEyLrilXSwFZ+Y6tlyCRwU=', '2019-05-05 07:11:46.302878', 1, 'admin', '', '', 'admin@gmail.com', 1, 1, '2019-05-01 11:53:25.640543'),
+(2, 'pbkdf2_sha256$120000$CiDsDCDpJiiy$fHruNM1ImzzuFsXUmSiQNzh6M/RadgL3nH4/zTBGEKA=', '2019-05-01 11:56:32.985324', 0, 'sample', '', '', 'sample@gmail.com', 0, 1, '2019-05-01 11:56:24.160952');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_groups`
+--
+
+DROP TABLE IF EXISTS `auth_user_groups`;
+CREATE TABLE IF NOT EXISTS `auth_user_groups` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `group_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_groups_user_id_group_id_94350c0c_uniq` (`user_id`,`group_id`),
+  KEY `auth_user_groups_group_id_97559544_fk_auth_group_id` (`group_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auth_user_user_permissions`
+--
+
+DROP TABLE IF EXISTS `auth_user_user_permissions`;
+CREATE TABLE IF NOT EXISTS `auth_user_user_permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `permission_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `auth_user_user_permissions_user_id_permission_id_14a6b632_uniq` (`user_id`,`permission_id`),
+  KEY `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` (`permission_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_admin_log`
+--
+
+DROP TABLE IF EXISTS `django_admin_log`;
+CREATE TABLE IF NOT EXISTS `django_admin_log` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `action_time` datetime(6) NOT NULL,
+  `object_id` longtext,
+  `object_repr` varchar(200) NOT NULL,
+  `action_flag` smallint(5) UNSIGNED NOT NULL,
+  `change_message` longtext NOT NULL,
+  `content_type_id` int(11) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_admin_log_content_type_id_c4bce8eb_fk_django_co` (`content_type_id`),
+  KEY `django_admin_log_user_id_c564eba6_fk_auth_user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `django_admin_log`
+--
+
+INSERT INTO `django_admin_log` (`id`, `action_time`, `object_id`, `object_repr`, `action_flag`, `change_message`, `content_type_id`, `user_id`) VALUES
+(1, '2019-05-01 11:58:56.357216', '1', 'test', 1, '[{\"added\": {}}]', 15, 1),
+(2, '2019-05-05 07:13:02.025167', '1', 'BOOKs', 1, '[{\"added\": {}}]', 5, 1),
+(3, '2019-05-05 07:14:26.811646', '2', 'MOBILE', 1, '[{\"added\": {}}]', 5, 1),
+(4, '2019-05-05 07:14:36.286537', '1', 'BOOKS', 2, '[{\"changed\": {\"fields\": [\"category\"]}}]', 5, 1),
+(5, '2019-05-05 07:14:47.598734', '3', 'SHOES', 1, '[{\"added\": {}}]', 5, 1),
+(6, '2019-05-05 07:15:25.354988', '4', 'WATCH', 1, '[{\"added\": {}}]', 5, 1),
+(7, '2019-05-05 07:16:39.723057', '5', 'STATIONARY', 1, '[{\"added\": {}}]', 5, 1),
+(8, '2019-05-05 07:17:03.155754', '1', 'test', 3, '', 15, 1),
+(9, '2019-05-05 07:32:21.070848', '2', 'SANGAMESH BOOKSTALL', 1, '[{\"added\": {}}]', 15, 1),
+(10, '2019-05-05 07:34:16.915005', '3', 'VIJAY BOOK HOUSE', 1, '[{\"added\": {}}]', 15, 1),
+(11, '2019-05-05 07:35:37.757255', '4', 'POORVIKA', 1, '[{\"added\": {}}]', 15, 1),
+(12, '2019-05-05 07:37:01.111035', '5', 'RELIENCE DIGITAL', 1, '[{\"added\": {}}]', 15, 1),
+(13, '2019-05-05 07:38:03.630348', '6', 'TITAN', 1, '[{\"added\": {}}]', 15, 1),
+(14, '2019-05-05 07:39:06.159178', '7', 'ADIDAS', 1, '[{\"added\": {}}]', 15, 1),
+(15, '2019-05-05 07:40:05.771774', '8', 'NIKE', 1, '[{\"added\": {}}]', 15, 1),
+(16, '2019-05-05 07:41:23.227237', '9', 'DAZZLE', 1, '[{\"added\": {}}]', 15, 1),
+(17, '2019-05-05 07:44:39.274051', '10', 'VIJAY SHANKAR PROJECT BINDING COLLEGE PROJECT REPORT', 1, '[{\"added\": {}}]', 15, 1),
+(18, '2019-05-05 07:52:10.788300', '2', 'Redmi Note 7 (Onyx Black, 64 GB)  (4 GB RAM) POORVIKA', 1, '[{\"added\": {}}]', 1, 1),
+(19, '2019-05-05 07:54:24.002887', '3', 'Samsung Galaxy A50 (Black, 64 GB)  (4 GB RAM) POORVIKA', 1, '[{\"added\": {}}]', 1, 1),
+(20, '2019-05-05 07:55:56.106367', '4', 'Nokia 5.1 Plus (Black, 32 GB)  (3 GB RAM) POORVIKA', 1, '[{\"added\": {}}]', 1, 1),
+(21, '2019-05-05 07:57:08.458095', '5', 'Samsung Galaxy A30 (Red, 64 GB)  (4 GB RAM) POORVIKA', 1, '[{\"added\": {}}]', 1, 1),
+(22, '2019-05-05 07:57:57.332317', '6', 'Samsung Galaxy A30 (Red, 64 GB)  (4 GB RAM) RELIENCE DIGITAL', 1, '[{\"added\": {}}]', 1, 1),
+(23, '2019-05-05 07:59:47.743277', '7', 'Infinix Smart 3 Plus (Midnight Black, 32 GB)  (2 G RELIENCE DIGITAL', 1, '[{\"added\": {}}]', 1, 1),
+(24, '2019-05-05 08:04:22.728070', '8', 'Honor 7A (Blue, 32 GB)  (3 GB RAM) RELIENCE DIGITAL', 1, '[{\"added\": {}}]', 1, 1),
+(25, '2019-05-05 08:07:28.412166', '9', 'ERDIGA 3 M SS 19 Running Shoes For Men  (Blue) ADIDAS', 1, '[{\"added\": {}}]', 1, 1),
+(26, '2019-05-05 08:08:46.809635', '10', 'KYRIS 1 M SS 19 Running Shoes For Men  (Multicolor ADIDAS', 1, '[{\"added\": {}}]', 1, 1),
+(27, '2019-05-05 08:09:40.252932', '11', 'ARGO TREK SS 19 Tennis Shoes For Men  (Black, Grey ADIDAS', 1, '[{\"added\": {}}]', 1, 1),
+(28, '2019-05-05 08:13:25.767360', '12', 'REVOLUTI SS 19 Running Shoes For Men  (Blue) NIKE', 1, '[{\"added\": {}}]', 1, 1),
+(29, '2019-05-05 08:14:45.738986', '13', 'NIKE FLY.BY L SS-19 Walking Shoes For Men  (Red, B NIKE', 1, '[{\"added\": {}}]', 1, 1),
+(30, '2019-05-05 08:17:44.219836', '14', 'LUNAR AUDACITY SS 19 Cricket Shoes For Men NIKE', 1, '[{\"added\": {}}]', 1, 1),
+(31, '2019-05-05 08:20:35.686148', '15', 'OPPO A1K (Red, 32 GB)  (2 GB RAM) RELIENCE DIGITAL', 1, '[{\"added\": {}}]', 1, 1),
+(32, '2019-05-05 08:22:09.929394', '16', 'Vivo V15 (Frozen Black, 64 GB)  (6 GB RAM) POORVIKA', 1, '[{\"added\": {}}]', 1, 1),
+(33, '2019-05-05 08:22:31.548398', '17', 'Vivo V15 (Frozen Black, 64 GB)  (6 GB RAM) POORVIKA', 1, '[{\"added\": {}}]', 1, 1),
+(34, '2019-05-05 08:23:05.986098', '17', 'Vivo V15 (Frozen Black, 64 GB)  (6 GB RAM) POORVIKA', 3, '', 1, 1),
+(35, '2019-05-05 08:27:53.403261', '18', 'SPEEDEND2END Basketball Shoes For Men  (Red) ADIDAS', 1, '[{\"added\": {}}]', 1, 1),
+(36, '2019-05-05 08:29:18.209421', '19', 'NIKE FLEX EXP SS-19 Running Shoes For Men  (Grey) NIKE', 1, '[{\"added\": {}}]', 1, 1),
+(37, '2019-05-05 08:32:55.930907', '20', '1773SM02 Analog Watch - For Men TITAN', 1, '[{\"added\": {}}]', 1, 1),
+(38, '2019-05-05 08:34:32.747743', '21', 'NG38004PP06CJ Tees Analog Watch - For Men TITAN', 1, '[{\"added\": {}}]', 1, 1),
+(39, '2019-05-05 08:36:26.092240', '22', 'SX120 Sheen Analog Watch - For Women TITAN', 1, '[{\"added\": {}}]', 1, 1),
+(40, '2019-05-05 08:38:02.832634', '23', 'SX195 Sheen Analog-Digital Watch - For Women TITAN', 1, '[{\"added\": {}}]', 1, 1),
+(41, '2019-05-05 08:46:41.967990', '24', 'General Knowledge   (Eng) VIJAY BOOK HOUSE', 1, '[{\"added\": {}}]', 1, 1),
+(42, '2019-05-05 08:48:06.960790', '25', 'The Girl in Room 105  (English, Paperback, Chetan SANGAMESH BOOKSTALL', 1, '[{\"added\": {}}]', 1, 1),
+(43, '2019-05-05 08:49:51.519536', '26', 'RRB JE Solved Paper and Practice Set  (English, Pa VIJAY BOOK HOUSE', 1, '[{\"added\": {}}]', 1, 1),
+(44, '2019-05-05 08:51:22.155086', '27', 'Cbse Chapterwise Physics Class 12th  (English, Pap SANGAMESH BOOKSTALL', 1, '[{\"added\": {}}]', 1, 1),
+(45, '2019-05-05 08:52:24.394671', '28', 'Cbse Chemistry Chapterwise Solved Papers Class12th VIJAY BOOK HOUSE', 1, '[{\"added\": {}}]', 1, 1),
+(46, '2019-05-05 08:54:23.905828', '29', 'Lakme Eyeconic Kajal Pencil  (Deep Black, 0.35 g) DAZZLE', 1, '[{\"added\": {}}]', 1, 1),
+(47, '2019-05-05 08:57:38.613090', '30', 'Maybelline New York Colossal Kajal,0.35g  (Black, DAZZLE', 1, '[{\"added\": {}}]', 1, 1),
+(48, '2019-05-05 09:01:52.321526', '31', 'Nivea Men Active Clean Shower Gel  (250 ml) DAZZLE', 1, '[{\"added\": {}}]', 1, 1),
+(49, '2019-05-05 09:04:23.870853', '32', 'BOOK Binding VIJAY SHANKAR PROJECT BINDING COLLEGE PROJECT REPORT', 1, '[{\"added\": {}}]', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_content_type`
+--
+
+DROP TABLE IF EXISTS `django_content_type`;
+CREATE TABLE IF NOT EXISTS `django_content_type` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app_label` varchar(100) NOT NULL,
+  `model` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `django_content_type`
+--
+
+INSERT INTO `django_content_type` (`id`, `app_label`, `model`) VALUES
+(9, 'admin', 'logentry'),
+(11, 'auth', 'group'),
+(10, 'auth', 'permission'),
+(12, 'auth', 'user'),
+(13, 'contenttypes', 'contenttype'),
+(14, 'sessions', 'session'),
+(5, 'shop', 'category'),
+(2, 'shop', 'contact'),
+(3, 'shop', 'orders'),
+(4, 'shop', 'orderupdate'),
+(1, 'shop', 'product'),
+(6, 'shop', 'rating'),
+(8, 'shop', 'registration'),
+(7, 'shop', 'userprofileinfo'),
+(15, 'shop_vendor', 'supplier');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_migrations`
+--
+
+DROP TABLE IF EXISTS `django_migrations`;
+CREATE TABLE IF NOT EXISTS `django_migrations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `app` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `applied` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `django_migrations`
+--
+
+INSERT INTO `django_migrations` (`id`, `app`, `name`, `applied`) VALUES
+(1, 'contenttypes', '0001_initial', '2019-05-01 11:32:08.505069'),
+(2, 'auth', '0001_initial', '2019-05-01 11:32:18.198306'),
+(3, 'admin', '0001_initial', '2019-05-01 11:32:20.011405'),
+(4, 'admin', '0002_logentry_remove_auto_add', '2019-05-01 11:32:20.063301'),
+(5, 'admin', '0003_logentry_add_action_flag_choices', '2019-05-01 11:32:20.117167'),
+(6, 'contenttypes', '0002_remove_content_type_name', '2019-05-01 11:32:21.210110'),
+(7, 'auth', '0002_alter_permission_name_max_length', '2019-05-01 11:32:21.420939'),
+(8, 'auth', '0003_alter_user_email_max_length', '2019-05-01 11:32:21.570174'),
+(9, 'auth', '0004_alter_user_username_opts', '2019-05-01 11:32:21.647247'),
+(10, 'auth', '0005_alter_user_last_login_null', '2019-05-01 11:32:22.137829'),
+(11, 'auth', '0006_require_contenttypes_0002', '2019-05-01 11:32:22.179749'),
+(12, 'auth', '0007_alter_validators_add_error_messages', '2019-05-01 11:32:22.241866'),
+(13, 'auth', '0008_alter_user_username_max_length', '2019-05-01 11:32:22.818230'),
+(14, 'auth', '0009_alter_user_last_name_max_length', '2019-05-01 11:32:22.981390'),
+(15, 'sessions', '0001_initial', '2019-05-01 11:32:23.571048'),
+(16, 'shop_vendor', '0001_initial', '2019-05-01 11:32:23.882612'),
+(17, 'shop_vendor', '0002_supplier_password', '2019-05-01 11:32:24.599819'),
+(18, 'shop_vendor', '0003_remove_supplier_password', '2019-05-01 11:32:25.423724'),
+(19, 'shop_vendor', '0004_supplier_password', '2019-05-01 11:32:26.057596'),
+(20, 'shop', '0001_initial', '2019-05-01 11:32:26.476178'),
+(21, 'shop', '0002_auto_20190329_1219', '2019-05-01 11:32:29.653691'),
+(22, 'shop', '0003_contact_orders_orderupdate', '2019-05-01 11:32:30.818669'),
+(23, 'shop', '0004_auto_20190331_1729', '2019-05-01 11:32:33.875049'),
+(24, 'shop', '0005_rating', '2019-05-01 11:32:36.257349'),
+(25, 'shop', '0006_userprofileinfo', '2019-05-01 11:32:38.148292'),
+(26, 'shop', '0007_remove_userprofileinfo_portfolio_site', '2019-05-01 11:32:38.858131'),
+(27, 'shop', '0008_auto_20190405_1943', '2019-05-01 11:32:39.555154'),
+(28, 'shop', '0009_auto_20190405_2023', '2019-05-01 11:32:40.194783'),
+(29, 'shop', '0010_auto_20190410_0959', '2019-05-01 11:32:43.257584'),
+(30, 'shop', '0011_auto_20190421_1408', '2019-05-01 11:32:43.327395'),
+(31, 'shop', '0012_orders_shop_name', '2019-05-01 11:32:44.703502'),
+(32, 'shop', '0013_sample', '2019-05-01 11:32:47.118522'),
+(33, 'shop', '0014_auto_20190422_2045', '2019-05-01 11:32:48.147707'),
+(34, 'shop', '0015_auto_20190422_2056', '2019-05-01 11:32:49.361250'),
+(35, 'shop', '0016_auto_20190424_1419', '2019-05-01 11:32:53.617855'),
+(36, 'shop', '0017_remove_category_shop_name', '2019-05-01 11:32:54.313573'),
+(37, 'shop', '0018_auto_20190425_1423', '2019-05-01 11:32:55.338902'),
+(38, 'shop', '0019_auto_20190425_1429', '2019-05-01 11:32:56.325944'),
+(39, 'shop', '0020_auto_20190425_1458', '2019-05-01 11:32:57.238970'),
+(40, 'shop', '0021_profile', '2019-05-01 11:32:58.648232'),
+(41, 'shop', '0022_auto_20190430_1429', '2019-05-01 11:32:59.431593'),
+(42, 'shop', '0023_registration', '2019-05-01 11:32:59.770312');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `django_session`
+--
+
+DROP TABLE IF EXISTS `django_session`;
+CREATE TABLE IF NOT EXISTS `django_session` (
+  `session_key` varchar(40) NOT NULL,
+  `session_data` longtext NOT NULL,
+  `expire_date` datetime(6) NOT NULL,
+  PRIMARY KEY (`session_key`),
+  KEY `django_session_expire_date_a5c62663` (`expire_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `django_session`
+--
+
+INSERT INTO `django_session` (`session_key`, `session_data`, `expire_date`) VALUES
+('b6yw6c5lbfe2fkskhc3zuatm5hbp7wtx', 'YjVmMDZjYWQwNTAyOTRkYzA2MTViNTFjMjA0MTA2YzM1MDk0NGQwNjp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiI1NDlkMmVmN2M0YWM4MjNjMjNmZTFiMTk0MGVhOTZhZDViMTcyM2M0In0=', '2019-05-19 07:11:46.458481');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_category`
+--
+
+DROP TABLE IF EXISTS `shop_category`;
+CREATE TABLE IF NOT EXISTS `shop_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shop_category`
+--
+
+INSERT INTO `shop_category` (`id`, `category`) VALUES
+(1, 'BOOKS'),
+(2, 'MOBILE'),
+(3, 'SHOES'),
+(4, 'WATCH'),
+(5, 'STATIONARY');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_contact`
+--
+
+DROP TABLE IF EXISTS `shop_contact`;
+CREATE TABLE IF NOT EXISTS `shop_contact` (
+  `msg_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(70) NOT NULL,
+  `phone` varchar(70) NOT NULL,
+  `desc` varchar(500) NOT NULL,
+  PRIMARY KEY (`msg_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_orders`
+--
+
+DROP TABLE IF EXISTS `shop_orders`;
+CREATE TABLE IF NOT EXISTS `shop_orders` (
+  `order_id` int(11) NOT NULL AUTO_INCREMENT,
+  `items_json` varchar(5000) NOT NULL,
+  `name` varchar(90) NOT NULL,
+  `email` varchar(111) NOT NULL,
+  `address` varchar(111) NOT NULL,
+  `city` varchar(111) NOT NULL,
+  `state` varchar(111) NOT NULL,
+  `zip_code` varchar(111) NOT NULL,
+  `phone` varchar(11) NOT NULL,
+  `shop_name_id` int(11) NOT NULL,
+  PRIMARY KEY (`order_id`),
+  KEY `shop_orders_shop_name_id_36ee7657_fk_shop_vendor_supplier_id` (`shop_name_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_orderupdate`
+--
+
+DROP TABLE IF EXISTS `shop_orderupdate`;
+CREATE TABLE IF NOT EXISTS `shop_orderupdate` (
+  `update_id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `update_desc` varchar(5000) NOT NULL,
+  `timestamp` date NOT NULL,
+  PRIMARY KEY (`update_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_product`
+--
+
+DROP TABLE IF EXISTS `shop_product`;
+CREATE TABLE IF NOT EXISTS `shop_product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_name` varchar(50) NOT NULL,
+  `desc` varchar(300) NOT NULL,
+  `pub_date` date DEFAULT NULL,
+  `category_id` int(11) NOT NULL,
+  `image` varchar(100) DEFAULT NULL,
+  `price` int(11) NOT NULL,
+  `shop_name_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `shop_product_category_id_14d7eea8` (`category_id`),
+  KEY `shop_product_shop_name_id_2478cccf_fk_shop_vendor_supplier_id` (`shop_name_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shop_product`
+--
+
+INSERT INTO `shop_product` (`id`, `product_name`, `desc`, `pub_date`, `category_id`, `image`, `price`, `shop_name_id`) VALUES
+(2, 'Redmi Note 7 (Onyx Black, 64 GB)  (4 GB RAM)', 'Experience power and performance in your palm with the Redmi Note 7. Every picture that you click comes out beautiful, thanks to its (12 MP + 2 MP) dual-rear camera and the 13 MP front camera. While 16-cm (6.3) FHD+ Dot Notch Display revolutionises your viewing experience, features such as AI Scene', '2019-05-05', 2, 'shop/images/mi-redmi-note-7-na-original-imafe48yggp2za54.jpeg', 11999, 4),
+(3, 'Samsung Galaxy A50 (Black, 64 GB)  (4 GB RAM)', 'Do a lot more than just text and call your friends with the Samsung Galaxy A50 smartphone. The Exynos 9610 Octa-core Processor makes multitasking a breeze. Take photography a notch higher with its revolutionary Triple Camera System that comprises a 25 MP Low Light Camera, 8 MP Ultra-wide Camera and', '2019-05-05', 2, 'shop/images/samsung-galaxy-a50-sm-a505fzkgins-original-imafefgh2bgdetj4.jpeg', 19999, 4),
+(4, 'Nokia 5.1 Plus (Black, 32 GB)  (3 GB RAM)', 'The Nokia 5.1 Plus has been designed to amaze and engineered to perform. It comes with a big 14.73-cm (5.8) HD+ display that has a 19:9 ratio which maximizes your viewing experience. It boasts an exquisite design that has been tailored with attention to detail. The smartphone\'s 13 MP rear camera and', '2019-05-05', 2, 'shop/images/nokia-5-1-plus-ta-1102-ds-original-imaf9jzhhmfm78d9.jpeg', 8000, 4),
+(5, 'Samsung Galaxy A30 (Red, 64 GB)  (4 GB RAM)', 'Explore the world with the Samsung Galaxy A30 smartphone. Its sAMOLED 16.21 cm (6.4) FHD+ Infinity-U Display redefines your visual experience. The Dual Camera System, comprising the 16 MP Low Light Camera and 5 MP Ultra-wide Camera, lets you take rich and beautiful pictures. Powered by the Exynos 7', '2019-05-05', 2, 'shop/images/samsung-galaxy-a30-sm-a305f-ds-original-imafefgggnurexzy.jpeg', 15999, 4),
+(6, 'Samsung Galaxy A30 (Red, 64 GB)  (4 GB RAM)', 'Explore the world with the Samsung Galaxy A30 smartphone. Its sAMOLED 16.21 cm (6.4) FHD+ Infinity-U Display redefines your visual experience. The Dual Camera System, comprising the 16 MP Low Light Camera and 5 MP Ultra-wide Camera, lets you take rich and beautiful pictures. Powered by the Exynos 7', '2019-05-05', 2, 'shop/images/samsung-galaxy-a30-sm-a305f-ds-original-imafefgggnurexzy_kRs1kjs.jpeg', 14999, 5),
+(7, 'Infinix Smart 3 Plus (Midnight Black, 32 GB)  (2 G', 'This smartphone from Infinix is here to give you an engrossing experience for your games, TV shows, movies and much more. Watch everything on the 15.74-cm (6.2) HD+ Drop Notch Screen come to life. You can explore the art of photography with the Triple Rear Camera System that comes with a dedicated', '2019-05-05', 2, 'shop/images/infinix-smart-3-plus-x627v-original-imafft7gzykwegax.jpeg', 7000, 5),
+(8, 'Honor 7A (Blue, 32 GB)  (3 GB RAM)', 'Capture the best moments of your life with the 13MP + 2MP ultra sharp dual-lens camera. Up your selfie game with the 8MP front shooter with adjustable selfie toning light. The 14.47cm Honor FullView display with 18:9 aspect ratio delivers a bezel-less viewing experience for gaming, watching movies', '2019-05-05', 2, 'shop/images/honor-7a-v100r001-aum-al20-original-imaf5h4amdhbzxtz.jpeg', 8000, 5),
+(9, 'ERDIGA 3 M SS 19 Running Shoes For Men  (Blue)', 'This product runs a size smaller. If you usually buy UK 9, buy UK 10 for this.', '2019-05-05', 3, 'shop/images/ck9689-6-adidas-legink-cblack-rawgre-original-imafebvzzput3maa.jpeg', 2500, 7),
+(10, 'KYRIS 1 M SS 19 Running Shoes For Men  (Multicolor', 'KYRIS 1 M SS 19 Running Shoes For Men  (Multicolor)', '2019-05-05', 3, 'shop/images/ck9605-8-adidas-visgre-legink-cblack-original-imafecdzhqzx3dyc.jpeg', 2600, 7),
+(11, 'ARGO TREK SS 19 Tennis Shoes For Men  (Black, Grey', 'ARGO TREK SS 19 Tennis Shoes For Men  (Black, Grey)', '2019-05-05', 3, 'shop/images/ck9838-8-adidas-cblack-gresix-silvmt-original-imafebvqa8q8crc5.jpeg', 2300, 7),
+(12, 'REVOLUTI SS 19 Running Shoes For Men  (Blue)', 'Running shoes', '2019-05-05', 3, 'shop/images/908988-403-8-nike-indigo-force-white-blue-void-original-imafdgmf6sv3khjv.jpeg', 2999, 8),
+(13, 'NIKE FLY.BY L SS-19 Walking Shoes For Men  (Red, B', 'Basket Ball Shoes', '2019-05-05', 3, 'shop/images/aj5902-006-8-nike-black-black-gym-red-white-original-imafd3z5gjhqqfkb.jpeg', 3999, 8),
+(14, 'LUNAR AUDACITY SS 19 Cricket Shoes For Men', 'Foot Ball Shoes', '2019-05-05', 3, 'shop/images/844123-106-ni-10-nike-white-black-wolf-grey-volt-original-imaf5kb6e4gzudty.jpeg', 9999, 8),
+(15, 'OPPO A1K (Red, 32 GB)  (2 GB RAM)', 'Screen Texture: a-Si TFT, GFF Touch Panel Technology, 87.43% Screen Ratio, Screen Contrast: 1200:1 (Typical), Color Saturation: NTSC 70% (Typical), Maximum Brightness: 450 nits (Typical), Touch Screen Supplier: BOE, INX, HSD, GFF Touch Screen Type, Touch Panel Glass Type: Corning Gorilla Glass 3', '2019-05-05', 2, 'shop/images/oppo-a1k-cph1923-original-imafg2hqnxx3kntn.jpeg', 8499, 5),
+(16, 'Vivo V15 (Frozen Black, 64 GB)  (6 GB RAM)', 'Introducing the Vivo V15 that has an edgy combination of performance and style. Watch everything on its 16.59 cm (6.53) Ultra Fullview Display come to life. Take photography a notch higher with its AI Triple Rear Camera. The 12 nm AI Octa-core Processor, along with 6 GB of RAM, is designed to give a', '2019-05-05', 2, 'shop/images/vivo-v15-1819-pd1831f-ex-original-imafesrhwmxcjp6y.jpeg', 20999, 4),
+(18, 'SPEEDEND2END Basketball Shoes For Men  (Red)', 'Basket Ball Shoes', '2019-05-05', 3, 'shop/images/bb7020fw-18-7-adidas-scarle-cblack-ftwwht-original-imaf97hayyhcfjhk.jpeg', 4999, 7),
+(19, 'NIKE FLEX EXP SS-19 Running Shoes For Men  (Grey)', 'Running shoes', '2019-05-05', 3, 'shop/images/aj5900-002-10-nike-cool-grey-lime-blast-black-pure-platinum-original-imafd3_a11ol19.jpeg', 3499, 8),
+(20, '1773SM02 Analog Watch - For Men', 'Analog Watch', '2019-05-05', 4, 'shop/images/1773sm02-titan-original-imafbj99ryczdngb.jpeg', 1699, 6),
+(21, 'NG38004PP06CJ Tees Analog Watch - For Men', 'Fastrack Analog WAtch', '2019-05-05', 4, 'shop/images/38004pp06-fastrack-original-imae9j88c2atwazf.jpeg', 699, 6),
+(22, 'SX120 Sheen Analog Watch - For Women', 'Analog Watch for Women', '2019-05-05', 4, 'shop/images/sx120-casio-original-imaeymcrskttfrhz.jpeg', 9499, 6),
+(23, 'SX195 Sheen Analog-Digital Watch - For Women', 'Analog-Digital Watch for Women', '2019-05-05', 4, 'shop/images/sx195-casio-original-imaexdu6quyykwmq.jpeg', 7999, 6),
+(24, 'General Knowledge   (Eng)', 'The book is useful for every reader in general and for the aspirants of various competitive examinations, viz. UPSC Civil Services, CDS, NDA, etc. exams, State Public Service Commission exams., SSC, Railway Recruitment Boards (RRBs), SCRA, Bank P.O./T.O., LIC/GIC/OIC (AAO), RBI grade etc', '2019-05-05', 1, 'shop/images/general-knowledge-original-imafdph4zahqkegt_fIElC91.jpeg', 210, 3),
+(25, 'The Girl in Room 105  (English, Paperback, Chetan', 'The Girl in Room 105  (English, Paperback, Chetan Bhagat)', '2019-05-05', 1, 'shop/images/the-girl-in-room-105-original-imafa2uy3zx8c7yn.jpeg', 150, 2),
+(26, 'RRB JE Solved Paper and Practice Set  (English, Pa', 'An editorial team of highly skilled professionals at Arihant, works hand in glove to ensure that the students receive the best and accurate content through our books.', '2019-05-05', 1, 'shop/images/rrb-je-solved-paper-and-practice-set-original-imafcvpgqgaveawz.jpeg', 200, 3),
+(27, 'Cbse Chapterwise Physics Class 12th  (English, Pap', 'Imprint Arihant Publishers Book Type Solved Papers Exam CBSE', '2019-05-05', 1, 'shop/images/cbse-chapterwise-solved-papers-2018-2009-physics-class-12th-original-imaf7y_6KFTkFy.jpeg', 0, 2),
+(28, 'Cbse Chemistry Chapterwise Solved Papers Class12th', 'Imprint Arihant Publication Book Type Chapterwise Solutions Exam CBSE', '2019-05-05', 1, 'shop/images/cbse-chapterwise-solved-papers-2018-2009-chemistry-12th-original-imaf7yka2n54k4hy.jpeg', 150, 3),
+(29, 'Lakme Eyeconic Kajal Pencil  (Deep Black, 0.35 g)', 'Accentuate the beauty of your eyes with the Lakme Eyeconic Kajal. This dermatologically tested kajal is just what you need for completing your eye makeup or carrying a simple, only-kajal look. It\'s a smudge proof, water proof kajal and can add the dramatic and glamorous look to your eyes.', '2019-05-05', 5, 'shop/images/0-35-eyeconic-kajal-pencil-lakme-original-imafftsgkd89z2mu.jpeg', 110, 9),
+(30, 'Maybelline New York Colossal Kajal,0.35g  (Black,', 'Accentuate your eyes instantly with this Maybelline the Colossal Kajal. Enriched with the goodness of aloe vera, Vitamin C and E, this Kajal glides in smoothly on your lashline, offering an intense kohl look.', '2019-05-05', 5, 'shop/images/0-35-the-colossal-kajal-maybelline-original-imaf7yz6fhtcggn5.jpeg', 100, 9),
+(31, 'Nivea Men Active Clean Shower Gel  (250 ml)', 'Get the ultra clean and revitalized feeling with NIVEA Men Active Clean Shower Gel. This innovative 3-in-1 shower gel is meant for your body, face and hair. Its active charcoal extracts deeply cleanse your skin while the caring formula lathers into a rich foam which keeps your skin hydrated. Get an', '2019-05-05', 5, 'shop/images/250-active-clean-shower-gel-nivea-men-original-imafeph7z6a34mxg.jpeg', 200, 9),
+(32, 'BOOK Binding', 'All types of book binding', '2019-05-05', 5, 'shop/images/images-service_img2_6-250x250.png', 150, 10);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_rating`
+--
+
+DROP TABLE IF EXISTS `shop_rating`;
+CREATE TABLE IF NOT EXISTS `shop_rating` (
+  `rating_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ratings` int(11) NOT NULL,
+  `product_id_id` int(11) NOT NULL,
+  PRIMARY KEY (`rating_id`),
+  KEY `shop_rating_product_id_id_4ed7c798_fk_shop_product_id` (`product_id_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_registration`
+--
+
+DROP TABLE IF EXISTS `shop_registration`;
+CREATE TABLE IF NOT EXISTS `shop_registration` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `email` varchar(70) NOT NULL,
+  `mobile` varchar(70) NOT NULL,
+  `city` varchar(20) NOT NULL,
+  `pincode` varchar(20) NOT NULL,
+  `username` varchar(20) NOT NULL,
+  `password` varchar(20) NOT NULL,
+  `confirm` varchar(20) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_userprofileinfo`
+--
+
+DROP TABLE IF EXISTS `shop_userprofileinfo`;
+CREATE TABLE IF NOT EXISTS `shop_userprofileinfo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `profile_pic` varchar(100) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shop_vendor_supplier`
+--
+
+DROP TABLE IF EXISTS `shop_vendor_supplier`;
+CREATE TABLE IF NOT EXISTS `shop_vendor_supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `shop_name` varchar(300) NOT NULL,
+  `email` varchar(111) NOT NULL,
+  `address` varchar(111) NOT NULL,
+  `phone` varchar(11) NOT NULL,
+  `password` varchar(6) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `shop_vendor_supplier`
+--
+
+INSERT INTO `shop_vendor_supplier` (`id`, `shop_name`, `email`, `address`, `phone`, `password`) VALUES
+(2, 'SANGAMESH BOOKSTALL', 'sangamesh@gmail.com', 'Koppikar Rd, Dajiban Peth, New Hubli, Hubali-Dharwad, Karnataka 580020', '098869 1287', '12345'),
+(3, 'VIJAY BOOK HOUSE', 'vijay@gmail.com', '76, Koppikar Rd, Kamaripeth, New Hubli, Hubli, Karnataka 580020', '0836 226 31', '12345'),
+(4, 'POORVIKA', 'poorvika@gmail.com', 'SKD Heights, Shop no.11A, PB Rd, Vidya Nagar, Hubali-Dharwad, Karnataka 580031', '8575896250', '12345'),
+(5, 'RELIENCE DIGITAL', 'ambani@gmail.com', 'Opp. to Poorvika PB Rd, Vidya Nagar, Hubali-Dharwad, Karnataka 580031', '7894562589', '12345'),
+(6, 'TITAN', 'fasttrack@gmail.com', 'Pb Rd, Vidya Nagar, Hubali-Dharwad, Karnataka 580031', '7465987845', '12345'),
+(7, 'ADIDAS', 'adidas@gmail.com', 'Kopikar Road Hubali-Dharwad, Karnataka 580031', '7348955122', '12345'),
+(8, 'NIKE', 'nike@gmail.com', 'Opp. to adidas Vidya Nagar, Hubali-Dharwad, Karnataka 580031', '7585964569', '12345'),
+(9, 'DAZZLE', 'dazzle@gmail.com', 'Shop no.18A, PB Rd, Vidya Nagar, Hubali-Dharwad, Karnataka 580031', '9638527412', '12345'),
+(10, 'VIJAY SHANKAR PROJECT BINDING COLLEGE PROJECT REPORT', 'vj@gamil.com', 'ABD Heights, Shop no.17, PB Rd, Vidya Nagar, Hubali-Dharwad, Karnataka 580031', '7845961236', '12345');
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `auth_group_permissions`
+--
+ALTER TABLE `auth_group_permissions`
+  ADD CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`);
+
+--
+-- Constraints for table `auth_permission`
+--
+ALTER TABLE `auth_permission`
+  ADD CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`);
+
+--
+-- Constraints for table `auth_user_groups`
+--
+ALTER TABLE `auth_user_groups`
+  ADD CONSTRAINT `auth_user_groups_group_id_97559544_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
+  ADD CONSTRAINT `auth_user_groups_user_id_6a12ed8b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `auth_user_user_permissions`
+--
+ALTER TABLE `auth_user_user_permissions`
+  ADD CONSTRAINT `auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
+  ADD CONSTRAINT `auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `django_admin_log`
+--
+ALTER TABLE `django_admin_log`
+  ADD CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
+  ADD CONSTRAINT `django_admin_log_user_id_c564eba6_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+
+--
+-- Constraints for table `shop_orders`
+--
+ALTER TABLE `shop_orders`
+  ADD CONSTRAINT `shop_orders_shop_name_id_36ee7657_fk_shop_vendor_supplier_id` FOREIGN KEY (`shop_name_id`) REFERENCES `shop_vendor_supplier` (`id`);
+
+--
+-- Constraints for table `shop_product`
+--
+ALTER TABLE `shop_product`
+  ADD CONSTRAINT `shop_product_category_id_14d7eea8_fk_shop_category_id` FOREIGN KEY (`category_id`) REFERENCES `shop_category` (`id`),
+  ADD CONSTRAINT `shop_product_shop_name_id_2478cccf_fk_shop_vendor_supplier_id` FOREIGN KEY (`shop_name_id`) REFERENCES `shop_vendor_supplier` (`id`);
+
+--
+-- Constraints for table `shop_rating`
+--
+ALTER TABLE `shop_rating`
+  ADD CONSTRAINT `shop_rating_product_id_id_4ed7c798_fk_shop_product_id` FOREIGN KEY (`product_id_id`) REFERENCES `shop_product` (`id`);
+
+--
+-- Constraints for table `shop_userprofileinfo`
+--
+ALTER TABLE `shop_userprofileinfo`
+  ADD CONSTRAINT `shop_userprofileinfo_user_id_2c80d7e3_fk_auth_user_id` FOREIGN KEY (`user_id`) REFERENCES `auth_user` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>ADD PRODUCT</title>
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="Dazzling Multi Forms Responsive web template, Bootstrap Web Templates, Flat Web Templates, Android Compatible web template,
+Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design"/>
+
+    
+    <script type="application/x-javascript"> addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        } </script>
+    <!-- //for-mobile-apps -->
+    <link href="{% static 'css/custstyle.css' %}" rel="stylesheet" type="text/css" media="all"/>
+    <link rel="stylesheet" href="{% static 'css/flexslider.css' %}" type="text/css" media="screen" property=""/>
+    <!-- js -->
+    <script src="{% static 'js/jquery-2.2.3.min.js' %}"></script>
+    <!-- //js -->
+    <link href="//fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
+    
+</head>
+<body>
+    {% for i in edit %}
+<div class="main">
+
+    <div class="w3_agile_main_grids">
+        <section class="slider">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <div class="agileits_w3layouts_main_grid">
+                            <h3>ADD PRODUCT</h3>
+                            <form action="/shop_vendor/addproduct/" method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="sid" value="{{ i.id }}">
+									<span>
+										<label>NAME</label>
+										<input name="name" id="name" type="text" placeholder="Product Name" required>
+                                    </span>
+                                <span>
+										<label>CATEGORY</label>
+                                        <select name="category" id="category">
+                                            <option>Select Category</option>
+                                            {% for i in category %} 
+                                            <option value="{{ i.id }}">{{ i.category }}</option>
+                                            {% endfor %}
+                                        </select>
+									</span>
+                                <span>
+										<label>PRICE</label>
+										<input name="price" id="price" type="text" placeholder="Price" required>
+									</span>
+
+                                <span>
+										<label>DESCRIPTION</label>
+										<input name="description" id="description" type="text" placeholder="description" required>
+                                    </span>
+                                    
+                                <!--<span>
+                                        <label>IMAGE</label>
+                                        <input type="file" id="file_input"  placeholder="Image" style="color:transparent;" >
+                                        <input type="text" id="title" value="{% static 'shop/sample.jpg' %}" name = "image" required>
+                                    </span>
+                                    
+                                <span>
+                                    -->
+                                    <span>
+										<label>PUBLISH DATE</label>
+										<input name="pubdate" id="pubdate" type="text" placeholder="YYYY-MM-DD" required>
+                                    </span>
+                                <div class="w3_agileits_submit">
+                                    <input type="submit" value="submit">
+                                    <input type="reset" value="reset">
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+    </div>
+    
+</div>
+{% endfor %}
+
+
+<!-- password -->
+<script type="text/javascript">
+    window.onload = function () {
+        document.getElementById("password1").onchange = validatePassword;
+        document.getElementById("password2").onchange = validatePassword;
+    }
+
+    function validatePassword() {
+        var pass2 = document.getElementById("password2").value;
+        var pass1 = document.getElementById("password1").value;
+        if (pass1 != pass2)
+            document.getElementById("password2").setCustomValidity("Passwords Don't Match");
+        else
+            document.getElementById("password2").setCustomValidity('');
+        //empty string means no validation error
+    }
+</script>
+<!-- password -->
+<!-- flexSlider -->
+<script defer src="{% static 'js/jquery.flexslider.js' %}"></script>
+<script type="text/javascript">
+    $(window).load(function () {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            start: function (slider) {
+                $('body').removeClass('loading');
+            }
+        });
+    });
+</script>
+<!-- //flexSlider -->
+
+</body>
+</html>
+

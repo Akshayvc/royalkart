@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration</title>
+    <!-- Custom Theme files -->
+<link href="{% static 'css/login.css' %}" rel="stylesheet" type="text/css" media="all"/>
+<!-- Custom Theme files -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!--Google Fonts-->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<!--Google Fonts-->
+</head>
+<style>
+   form input[type="text"],input[type="password"] {
+    outline: none;
+    font-size: 15px;
+    font-weight: 400;
+    color: #c0c0c0;
+    padding: 10px 55px 10px 46px;
+    border: 1px solid #2DC2BC;
+    border-radius: 5px;
+    margin: 0 auto 15px;
+    width: 60%;
+    -webkit-appearance: none;
+}
+</style>
+<body>  
+    <div style="
+      width: 31%;
+      margin: 40px 100px 10px 450px;
+      padding: 1px 30px 0px 0px;
+      border-radius: 5px;
+      background:#fff;
+      padding-bottom:20px;
+      padding-left: 20px;
+    ">
+        <h1 style="color:black;">Registration</h1>
+    <form method="POST">
+        {% csrf_token %} 
+        <table>    
+            <tr>
+              <td>{{ form.username.label_tag }}&nbsp;&nbsp;&nbsp;</td>
+              <td>{{ form.username }}      
+            </td>
+              
+            </tr>
+                   
+            <tr>
+                <td>{{ form.email.label_tag}}</td>
+                <td>{{ form.email }}</td>
+              
+              </tr>
+                         
+                </tr>
+                       
+                <tr>
+                    <td>{{ form.city.label_tag}}</td>
+                    <td>{{ form.city }}</td>
+                    
+                  </tr>
+                  <tr>
+                    <td>{{ form.pin_code.label_tag}}</td>
+                    <td>{{ form.pin_code }}</td>
+                    
+                  </tr>
+                  <tr>
+                    <td>{{ form.mobile.label_tag}}</td>
+                    <td>{{ form.mobile }}</td>
+                    
+                  </tr>
+                  <tr>
+                    <td>{{ form.password.label_tag}}</td>
+                    <td>{{ form.password }}      
+  
+                  </td>
+                  <tr>
+                    <td>{{ form.verify.label_tag}}</td>
+                    <td>{{ form.verify }}</td>
+                    
+                  </tr>
+         
+      </table>
+    </br>
+      <center>
+          <button type='submit' style="background: #0066A2; color: white; border-style: outset;border-color: #0066A2;
+          height: 40px; width: 100px;font: bold 15px arial, sans-serif;text-shadow:none;" onclick="return Validate()">Submit</button>
+      </center>
+    </form>
+    </div>
+    {% block js %}
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60"
+    crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+      integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+      integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+      crossorigin="anonymous"></script>
+      <script>
+        function Validate() {
+          var password = document.getElementById("id_password").value;
+          var cpassword = document.getElementById("id_verify").value;
+          if ( password != cpassword) {
+            alert("password do not match");
+            return false;
+          }
+          return true;
+        }
+      </script>
+    {% endblock %}
+</body>
+</html>
